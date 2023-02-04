@@ -36,19 +36,17 @@ func _physics_process(_delta):
 		$AnimationPlayer.play("run")
 	else:
 		motion.x = lerp(motion.x, 0, 0.2)
-		$AnimationPlayer.play("idle")
+		if is_on_floor():
+			$AnimationPlayer.play("idle")
 		
 	if is_on_floor():
 		if Input.is_action_pressed("jump"):
 			motion.y = -jumpForce
 			
 	if !is_on_floor():
-		#if motion.y < 0:
-			#$AnimationPlayer.play("jump")
-		#elif motion.y > 0:
-			#$AnimationPlayer.play("run") #fall
-		#else:
-			#$AnimationPlayer.play("jump")
-		$AnimationPlayer.play("jump")
+		if motion.y < 0:
+			$AnimationPlayer.play("jump")
+		elif motion.y > 0:
+			$AnimationPlayer.play("fall") 
 			
 	motion = move_and_slide(motion, up)
