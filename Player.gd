@@ -29,11 +29,13 @@ func _physics_process(_delta):
 	if Input.is_action_pressed("right"):
 		motion.x += accel
 		dirRight = true
-		$AnimationPlayer.play("run")
+		if is_on_floor():
+			$AnimationPlayer.play("run")
 	elif Input.is_action_pressed("left"):
 		motion.x += -accel
 		dirRight = false 
-		$AnimationPlayer.play("run")
+		if is_on_floor():
+			$AnimationPlayer.play("run")
 	else:
 		motion.x = lerp(motion.x, 0, 0.2)
 		if is_on_floor():
