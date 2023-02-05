@@ -52,3 +52,6 @@ func _physics_process(_delta):
 			$AnimationPlayer.play("fall") 
 			
 	motion = move_and_slide(motion, up)
+	
+func _on_Button_Pressed():
+	Global.camera.shake(1,5)
