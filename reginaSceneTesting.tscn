@@ -117,3 +117,9 @@ anims/fall = SubResource( 6 )
 anims/idle = SubResource( 3 )
 anims/jump = SubResource( 5 )
 anims/run = SubResource( 4 )
+
+[node name="Timer" type="Timer" parent="Player"]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="Player/Timer" to="Player" method="_on_Timer_timeout"]

@@ -3,12 +3,16 @@ extends KinematicBody2D
 const up = Vector2(0, -1)
 const grav = 100
 const maxFallSpeed = 800
-const maxSpeed = 500#80
 const jumpForce = 1500#300 
-const accel = 50#10 
+var maxSpeed = 500#80
+var accel = 50#10 
 
 var motion = Vector2()
 var dirRight = true
+
+var sprinting = false
+var doubleTapR = false
+var doubleTapL = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,15 +35,41 @@ func _physics_process(_delta):
 		dirRight = true
 		if is_on_floor():
 			$AnimationPlayer.play("run")
+		if doubleTapR == true:
+			sprinting = true
+			sprintTime()
 	elif Input.is_action_pressed("left"):
 		motion.x += -accel
 		dirRight = false 
 		if is_on_floor():
 			$AnimationPlayer.play("run")
+		if doubleTapL == true:
+			sprinting = true
+			sprintTime()
 	else:
 		motion.x = lerp(motion.x, 0, 0.2)
 		if is_on_floor():
 			$AnimationPlayer.play("idle")
+			
+	if Input.is_action_just_released("right"):
+		if sprinting == true:
+			sprinting = false
+		doubleTapR = true
+		$Timer.start()
+	elif Input.is_action_just_released("left"):
+		if sprinting == true:
+			sprinting = false
+		doubleTapL = true
+		$Timer.start()
+	
+			
+	if sprinting == true:
+		accel = 500
+		maxSpeed = 2000
+	else: 
+		accel = 50
+		maxSpeed = 500
+		
 		
 	if is_on_floor():
 		if Input.is_action_pressed("jump"):
@@ -53,5 +83,16 @@ func _physics_process(_delta):
 			
 	motion = move_and_slide(motion, up)
 	
+func sprintTime():
+	yield(get_tree().create_timer(0.1), "timeout")
+	sprinting = false
+	#motion.x = lerp(motion.x, 0, 0.2)
+	#$AnimationPlayer.play("idle")
+	
 func _on_Button_Pressed():
 	Global.camera.shake(1,5)
+
+
+func _on_Timer_timeout():
+	doubleTapL = false
+	doubleTapR = false
