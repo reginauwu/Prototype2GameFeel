@@ -97,6 +97,7 @@ func _on_Button_pressed():
 	if(Global.shake_button_toggle):
 		Global.camera.shake(1,4)
 
+# Shake Toggle
 func _on_CheckButton_toggled(button_pressed):
 	if(button_pressed):
 		Global.shake_button_toggle = true

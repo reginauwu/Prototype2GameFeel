@@ -1,12 +1,17 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://testTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://kirby.png" type="Texture" id=2]
 [ext_resource path="res://Player.gd" type="Script" id=3]
 [ext_resource path="res://Camera2D.gd" type="Script" id=4]
+[ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 40.7922
+
+[sub_resource type="DynamicFont" id=7]
+size = 50
+font_data = ExtResource( 5 )
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -102,17 +107,24 @@ position = Vector2( 0, 8 )
 shape = SubResource( 1 )
 
 [node name="Button" type="Button" parent="Player"]
-margin_left = -1045.0
-margin_top = -839.0
-margin_right = -643.0
-margin_bottom = -651.0
+margin_left = -1050.0
+margin_top = -846.0
+margin_right = -897.0
+margin_bottom = -764.0
 text = "Shake"
 
 [node name="CheckButton" type="CheckButton" parent="Player"]
-margin_left = -1043.0
-margin_top = -644.0
-margin_right = -926.0
-margin_bottom = -604.0
+margin_left = -942.0
+margin_top = -717.0
+margin_right = -825.0
+margin_bottom = -677.0
+
+[node name="ShakeLabel" type="RichTextLabel" parent="Player/CheckButton"]
+margin_left = -107.0
+margin_top = -19.0
+margin_right = 42.0
+margin_bottom = 53.0
+custom_fonts/normal_font = SubResource( 7 )
 text = "Shake"
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
