@@ -108,6 +108,13 @@ margin_right = -643.0
 margin_bottom = -651.0
 text = "Shake"
 
+[node name="CheckButton" type="CheckButton" parent="Player"]
+margin_left = -1043.0
+margin_top = -644.0
+margin_right = -926.0
+margin_bottom = -604.0
+text = "Shake"
+
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -72, -288 )
 current = true
@@ -136,4 +143,5 @@ wait_time = 0.5
 one_shot = true
 
 [connection signal="pressed" from="Player/Button" to="Player" method="_on_Button_pressed"]
+[connection signal="toggled" from="Player/CheckButton" to="Player" method="_on_CheckButton_toggled"]
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_Timer_timeout"]

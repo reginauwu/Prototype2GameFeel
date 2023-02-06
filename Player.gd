@@ -94,4 +94,11 @@ func _on_Timer_timeout():
 	doubleTapR = false
 
 func _on_Button_pressed():
-	Global.camera.shake(1,4)
+	if(Global.shake_button_toggle):
+		Global.camera.shake(1,4)
+
+func _on_CheckButton_toggled(button_pressed):
+	if(button_pressed):
+		Global.shake_button_toggle = true
+	else:
+		Global.shake_button_toggle = false
