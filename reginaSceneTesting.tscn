@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://testTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://kirby.png" type="Texture" id=2]
 [ext_resource path="res://Player.gd" type="Script" id=3]
+[ext_resource path="res://Camera2D.gd" type="Script" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 40.7922
@@ -100,11 +101,23 @@ script = ExtResource( 3 )
 position = Vector2( 0, 8 )
 shape = SubResource( 1 )
 
+[node name="Button" type="Button" parent="Player"]
+margin_left = -1045.0
+margin_top = -839.0
+margin_right = -643.0
+margin_bottom = -651.0
+text = "Shake"
+
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -72, -288 )
 current = true
 zoom = Vector2( 2, 2 )
 smoothing_enabled = true
+script = ExtResource( 4 )
+
+[node name="Tween" type="Tween" parent="Player/Camera2D"]
+
+[node name="Timer" type="Timer" parent="Player/Camera2D"]
 
 [node name="Sprite" type="Sprite" parent="Player"]
 texture = ExtResource( 2 )
@@ -122,4 +135,5 @@ anims/run = SubResource( 4 )
 wait_time = 0.5
 one_shot = true
 
+[connection signal="pressed" from="Player/Button" to="Player" method="_on_Button_pressed"]
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_Timer_timeout"]

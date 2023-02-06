@@ -88,11 +88,10 @@ func sprintTime():
 	sprinting = false
 	#motion.x = lerp(motion.x, 0, 0.2)
 	#$AnimationPlayer.play("idle")
-	
-func _on_Button_Pressed():
-	Global.camera.shake(1,5)
-
 
 func _on_Timer_timeout():
 	doubleTapL = false
 	doubleTapR = false
+
+func _on_Button_pressed():
+	Global.camera.shake(1,4)

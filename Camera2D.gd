@@ -1,6 +1,5 @@
 extends Camera2D
 
-
 var shake_amount = 0
 var default_offset = offset
 onready var tween = $Tween
@@ -21,6 +20,7 @@ func shake(time, amount):
 	shake_amount = amount
 	set_process(true)
 	timer.start()
+	timer.connect("timeout",self,"_on_Timer_timeout")
 
 func _on_Timer_timeout():
 	set_process(false)
