@@ -71,8 +71,8 @@ func _physics_process(_delta):
 			sprinting = false
 		doubleTapL = true
 		$Timer.start()
-	
-			
+
+
 	if sprinting == true:
 		accel = 500
 		maxSpeed = 2000
@@ -83,6 +83,8 @@ func _physics_process(_delta):
 		
 	if is_on_floor():
 		if jumped:
+			$Sprite.visible = true
+			$Sprite2.visible = false
 			$AnimationPlayer.play("land")
 			$SpriteLandEffect.visible = true
 			$AnimationPlayer2.play("landEffect")
@@ -91,8 +93,11 @@ func _physics_process(_delta):
 			jumped = false
 			motion.x = 0
 		elif Input.is_action_just_pressed("jump"):
-			motion.y = -jumpForce
+			$Sprite.visible = true
+			$Sprite2.visible = false
 			jumped = true
+			motion.y = -jumpForce
+			#jumped = true
 			
 	if !is_on_floor():
 		if motion.y < 0:
