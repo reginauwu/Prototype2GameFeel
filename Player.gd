@@ -1,11 +1,12 @@
 extends KinematicBody2D
 
 const up = Vector2(0, -1)
-const grav = 100
+const grav = 50
 const maxFallSpeed = 800
 const jumpForce = 1500#300 
 var maxSpeed = 500#80
 var accel = 50#10 
+var jumped = false
 
 var motion = Vector2()
 var dirRight = true
@@ -25,15 +26,20 @@ func _physics_process(_delta):
 	
 	if dirRight == true:
 		$Sprite.scale.x = 1
+		$Sprite2.scale.x = 1
 	else:
 		$Sprite.scale.x = -1
+		$Sprite2.scale.x = -1
 	
 	motion.x = clamp(motion.x, -maxSpeed, maxSpeed)
+
 	
 	if Input.is_action_pressed("right"):
 		motion.x += accel
 		dirRight = true
-		if is_on_floor():
+		if is_on_floor() and !jumped:
+			$Sprite.visible = false
+			$Sprite2.visible = true
 			$AnimationPlayer.play("run")
 		if doubleTapR == true:
 			sprinting = true
@@ -41,22 +47,26 @@ func _physics_process(_delta):
 	elif Input.is_action_pressed("left"):
 		motion.x += -accel
 		dirRight = false 
-		if is_on_floor():
+		if is_on_floor() and !jumped:
+			$Sprite.visible = false
+			$Sprite2.visible = true
 			$AnimationPlayer.play("run")
 		if doubleTapL == true:
 			sprinting = true
 			sprintTime()
 	else:
+		$Sprite.visible = true
+		$Sprite2.visible = false
 		motion.x = lerp(motion.x, 0, 0.2)
-		if is_on_floor():
+		if is_on_floor() and !jumped:
 			$AnimationPlayer.play("idle")
 			
-	if Input.is_action_just_released("right"):
+	if Input.is_action_just_released("right") and !jumped:
 		if sprinting == true:
 			sprinting = false
 		doubleTapR = true
 		$Timer.start()
-	elif Input.is_action_just_released("left"):
+	elif Input.is_action_just_released("left") and !jumped:
 		if sprinting == true:
 			sprinting = false
 		doubleTapL = true
@@ -72,8 +82,17 @@ func _physics_process(_delta):
 		
 		
 	if is_on_floor():
-		if Input.is_action_pressed("jump"):
+		if jumped:
+			$AnimationPlayer.play("land")
+			$SpriteLandEffect.visible = true
+			$AnimationPlayer2.play("landEffect")
+			yield(get_tree().create_timer(0.4), "timeout")
+			$SpriteLandEffect.visible = false
+			jumped = false
+			motion.x = 0
+		elif Input.is_action_just_pressed("jump"):
 			motion.y = -jumpForce
+			jumped = true
 			
 	if !is_on_floor():
 		if motion.y < 0:
@@ -86,8 +105,6 @@ func _physics_process(_delta):
 func sprintTime():
 	yield(get_tree().create_timer(0.1), "timeout")
 	sprinting = false
-	#motion.x = lerp(motion.x, 0, 0.2)
-	#$AnimationPlayer.play("idle")
 
 func _on_Timer_timeout():
 	doubleTapL = false
