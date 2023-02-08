@@ -7,6 +7,7 @@ const jumpForce = 1500#300
 var maxSpeed = 500#80
 var accel = 50#10 
 var jumped = false
+var finishLanding = true
 
 var motion = Vector2()
 var dirRight = true
@@ -49,7 +50,7 @@ func _physics_process(_delta):
 	if Input.is_action_pressed("right"):
 		motion.x += accel
 		dirRight = true
-		if is_on_floor() and !jumped:
+		if is_on_floor() and !jumped and finishLanding:
 			if(Global.animation_toggle):
 				$Sprite.visible = false
 				$Sprite2.visible = true
@@ -63,7 +64,7 @@ func _physics_process(_delta):
 	elif Input.is_action_pressed("left"):
 		motion.x += -accel
 		dirRight = false 
-		if is_on_floor() and !jumped:
+		if is_on_floor() and !jumped and finishLanding:
 			if(Global.animation_toggle):
 				$Sprite.visible = false
 				$Sprite2.visible = true
@@ -80,7 +81,7 @@ func _physics_process(_delta):
 			$Sprite2.visible = false
 		#$CPUParticles2D.visible = false
 		motion.x = lerp(motion.x, 0, 0.2)
-		if is_on_floor() and !jumped:
+		if is_on_floor() and !jumped and finishLanding:
 			sfxWalk.stop()
 			if(Global.animation_toggle):
 				$AnimationPlayer.play("idle")
@@ -108,6 +109,7 @@ func _physics_process(_delta):
 		
 	if is_on_floor():
 		if jumped:
+			jumped = false
 			if(Global.animation_toggle):
 				$Sprite.visible = true
 				$Sprite2.visible = false
@@ -117,11 +119,15 @@ func _physics_process(_delta):
 				$AnimationPlayer2.play("landEffect")
 			if (Global.sound_toggle) and !sfxLand.is_playing():
 				sfxLand.play()
-			yield(get_tree().create_timer(0.4), "timeout")
+			yield(get_tree().create_timer($AnimationPlayer.get_animation("land").length), "timeout")
+			print("landed")
 			$SpriteLandEffect.visible = false
-			jumped = false
-			motion.x = 0
-		elif Input.is_action_just_pressed("jump"):
+			finishLanding = true
+			#jumped = false
+			#motion.x = 0
+		elif Input.is_action_just_pressed("jump") and finishLanding:
+			finishLanding = false
+			print("jumped")
 			if (Global.sound_toggle):
 				sfxWalk.stop()
 				sfxJump.play()
