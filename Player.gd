@@ -109,6 +109,9 @@ func _physics_process(_delta):
 			$AnimationPlayer.play("fall") 
 			
 	motion = move_and_slide(motion, up)
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		print("I collided with ", collision.collider.name)
 	
 #func sprintTime():
 #	yield(get_tree().create_timer(0.1), "timeout")

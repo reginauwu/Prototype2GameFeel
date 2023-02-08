@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://testTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://slimeSprites/slimeWalk.png" type="Texture" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://slimeSprites/slimeIdleJumpAndIdle.png" type="Texture" id=6]
 [ext_resource path="res://slimeSprites/slimeLandEffect.png" type="Texture" id=7]
 [ext_resource path="res://slimeSprites/particle.png" type="Texture" id=8]
+[ext_resource path="res://chickySprites/chicky.png" type="Texture" id=9]
+[ext_resource path="res://chickySprites/chicky2.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 20, 18 )
@@ -178,6 +180,9 @@ tracks/0/keys = {
 offsets = PoolRealArray( 0, 0.0167598, 0.027933, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
+[sub_resource type="CapsuleShape2D" id=15]
+radius = 25.0
+
 [node name="World" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -272,6 +277,20 @@ gravity = Vector2( 0, 0 )
 scale_amount = 3.0
 scale_amount_random = 1.0
 color_ramp = SubResource( 14 )
+
+[node name="Enemy" type="KinematicBody2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Enemy"]
+position = Vector2( -376, -35 )
+texture = ExtResource( 9 )
+
+[node name="Sprite2" type="Sprite" parent="Enemy"]
+visible = false
+texture = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+position = Vector2( -386, -32 )
+shape = SubResource( 15 )
 
 [connection signal="pressed" from="Player/Button" to="Player" method="_on_Button_pressed"]
 [connection signal="toggled" from="Player/CheckButton" to="Player" method="_on_CheckButton_toggled"]

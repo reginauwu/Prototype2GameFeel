@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="GameFeelPrototyp2"
+config/name="GameFeelPrototype2"
 run/main_scene="res://reginaSceneTesting.tscn"
 config/icon="res://icon.png"
 
