@@ -41,6 +41,7 @@ func _physics_process(_delta):
 			$Sprite.visible = false
 			$Sprite2.visible = true
 			$AnimationPlayer.play("run")
+			#$CPUParticles2D.visible = true
 		if doubleTapR == true:
 			sprinting = true
 			sprintTime()
@@ -51,12 +52,14 @@ func _physics_process(_delta):
 			$Sprite.visible = false
 			$Sprite2.visible = true
 			$AnimationPlayer.play("run")
+			#$CPUParticles2D.visible = true
 		if doubleTapL == true:
 			sprinting = true
 			sprintTime()
 	else:
 		$Sprite.visible = true
 		$Sprite2.visible = false
+		#$CPUParticles2D.visible = false
 		motion.x = lerp(motion.x, 0, 0.2)
 		if is_on_floor() and !jumped:
 			$AnimationPlayer.play("idle")
