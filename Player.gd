@@ -111,6 +111,7 @@ func _physics_process(_delta):
 				$Sprite.visible = true
 				$Sprite2.visible = false
 				$AnimationPlayer.play("land")
+			if(Global.particle_toggle):
 				$SpriteLandEffect.visible = true
 				$AnimationPlayer2.play("landEffect")
 			if (Global.sound_toggle) and !sfxLand.is_playing():
