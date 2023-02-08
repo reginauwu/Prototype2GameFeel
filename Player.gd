@@ -13,7 +13,9 @@ var dirRight = true
 
 var mus_pos = 0
 
-onready var walk = $PlayerWalkSound
+onready var sfxWalk = $PlayerWalkSound
+onready var sfxJump = $PlayerJumpSound
+onready var sfxLand = $PlayerLandSound
 
 
 #var sprinting = false
@@ -51,8 +53,8 @@ func _physics_process(_delta):
 				$Sprite.visible = false
 				$Sprite2.visible = true
 				$AnimationPlayer.play("run")
-			if(Global.sound_toggle):
-				walk.play()
+			if(Global.sound_toggle) and !sfxWalk.is_playing():
+				sfxWalk.play()
 			#$CPUParticles2D.visible = true
 #		if doubleTapR == true:
 #			sprinting = true
@@ -65,8 +67,8 @@ func _physics_process(_delta):
 				$Sprite.visible = false
 				$Sprite2.visible = true
 				$AnimationPlayer.play("run")
-			if(Global.sound_toggle):
-				walk.play()
+			if(Global.sound_toggle) and !sfxWalk.is_playing():
+				sfxWalk.play()
 			#$CPUParticles2D.visible = true
 #		if doubleTapL == true:
 #			sprinting = true
@@ -78,7 +80,7 @@ func _physics_process(_delta):
 		#$CPUParticles2D.visible = false
 		motion.x = lerp(motion.x, 0, 0.2)
 		if is_on_floor() and !jumped:
-			walk.stop()
+			sfxWalk.stop()
 			if(Global.animation_toggle):
 				$AnimationPlayer.play("idle")
 			
@@ -111,11 +113,16 @@ func _physics_process(_delta):
 				$AnimationPlayer.play("land")
 				$SpriteLandEffect.visible = true
 				$AnimationPlayer2.play("landEffect")
+			if (Global.sound_toggle) and !sfxLand.is_playing():
+				sfxLand.play()
 			yield(get_tree().create_timer(0.4), "timeout")
 			$SpriteLandEffect.visible = false
 			jumped = false
 			motion.x = 0
 		elif Input.is_action_just_pressed("jump"):
+			if (Global.sound_toggle):
+				sfxWalk.stop()
+				sfxJump.play()
 			if(Global.animation_toggle):
 				$Sprite.visible = true
 				$Sprite2.visible = false
