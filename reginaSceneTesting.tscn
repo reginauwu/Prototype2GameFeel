@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://testTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://slimeSprites/slimeWalk.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://slimeSprites/particle.png" type="Texture" id=8]
 [ext_resource path="res://chickySprites/chicky.png" type="Texture" id=9]
 [ext_resource path="res://chickySprites/chicky2.png" type="Texture" id=10]
+[ext_resource path="res://188384__wubitog__slime-attack-or-movement.wav" type="AudioStream" id=11]
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 20, 18 )
@@ -199,16 +200,16 @@ position = Vector2( 0, 40 )
 shape = SubResource( 8 )
 
 [node name="CheckButton3" type="CheckButton" parent="Player"]
-margin_left = -335.0
-margin_top = -194.0
-margin_right = -259.0
-margin_bottom = -154.0
+margin_left = -337.0
+margin_top = -191.0
+margin_right = -261.0
+margin_bottom = -151.0
 
 [node name="CheckButton2" type="CheckButton" parent="Player"]
-margin_left = -337.0
-margin_top = -254.0
-margin_right = -261.0
-margin_bottom = -214.0
+margin_left = -338.0
+margin_top = -250.0
+margin_right = -262.0
+margin_bottom = -210.0
 
 [node name="CheckButton" type="CheckButton" parent="Player"]
 margin_left = -379.0
@@ -282,6 +283,10 @@ gravity = Vector2( 0, 0 )
 scale_amount = 3.0
 scale_amount_random = 1.0
 color_ramp = SubResource( 14 )
+
+[node name="PlayerWalkSound" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource( 11 )
+volume_db = 10.0
 
 [node name="Enemy" type="KinematicBody2D" parent="."]
 

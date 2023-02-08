@@ -11,6 +11,9 @@ var jumped = false
 var motion = Vector2()
 var dirRight = true
 
+onready var walk = $PlayerWalkSound
+
+
 #var sprinting = false
 #var doubleTapR = false
 #var doubleTapL = false
@@ -46,6 +49,7 @@ func _physics_process(_delta):
 			$Sprite2.visible = true
 			if(Global.animation_toggle):
 				$AnimationPlayer.play("run")
+				walk.play()
 			#$CPUParticles2D.visible = true
 #		if doubleTapR == true:
 #			sprinting = true
@@ -58,6 +62,7 @@ func _physics_process(_delta):
 			$Sprite2.visible = true
 			if(Global.animation_toggle):
 				$AnimationPlayer.play("run")
+				walk.play()
 			#$CPUParticles2D.visible = true
 #		if doubleTapL == true:
 #			sprinting = true
@@ -68,6 +73,7 @@ func _physics_process(_delta):
 		#$CPUParticles2D.visible = false
 		motion.x = lerp(motion.x, 0, 0.2)
 		if is_on_floor() and !jumped:
+			walk.stop()
 			$AnimationPlayer.play("idle")
 			
 #	if Input.is_action_just_released("right") and !jumped:
@@ -89,6 +95,7 @@ func _physics_process(_delta):
 #		accel = 50
 #		maxSpeed = 500
 		
+
 		
 	if is_on_floor():
 		if jumped:
