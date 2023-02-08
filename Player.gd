@@ -26,6 +26,7 @@ onready var sfxHit = $PlayerHitSound
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GlobalAudioStreamPlayer.play(mus_pos)
 	pass # Replace with function body.
 
 func _physics_process(_delta):

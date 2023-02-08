@@ -248,24 +248,28 @@ margin_left = -336.0
 margin_top = -139.0
 margin_right = -260.0
 margin_bottom = -99.0
+pressed = true
 
 [node name="CheckButton3" type="CheckButton" parent="Player"]
 margin_left = -337.0
 margin_top = -198.0
 margin_right = -261.0
 margin_bottom = -158.0
+pressed = true
 
 [node name="CheckButton2" type="CheckButton" parent="Player"]
 margin_left = -338.0
 margin_top = -256.0
 margin_right = -262.0
 margin_bottom = -216.0
+pressed = true
 
 [node name="CheckButton" type="CheckButton" parent="Player"]
 margin_left = -379.0
 margin_top = -312.0
 margin_right = -262.0
 margin_bottom = -272.0
+pressed = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 0, -40 )
