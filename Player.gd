@@ -11,6 +11,8 @@ var jumped = false
 var motion = Vector2()
 var dirRight = true
 
+var mus_pos = 0
+
 onready var walk = $PlayerWalkSound
 
 
@@ -35,7 +37,7 @@ func _physics_process(_delta):
 		$Sprite2.scale.x = -1
 	
 	motion.x = clamp(motion.x, -maxSpeed, maxSpeed)
-
+	
 	if(Global.particle_toggle):
 		$Particles.visible = true
 	else:
@@ -45,9 +47,9 @@ func _physics_process(_delta):
 		motion.x += accel
 		dirRight = true
 		if is_on_floor() and !jumped:
-			$Sprite.visible = false
-			$Sprite2.visible = true
 			if(Global.animation_toggle):
+				$Sprite.visible = false
+				$Sprite2.visible = true
 				$AnimationPlayer.play("run")
 			if(Global.sound_toggle):
 				walk.play()
@@ -59,9 +61,9 @@ func _physics_process(_delta):
 		motion.x += -accel
 		dirRight = false 
 		if is_on_floor() and !jumped:
-			$Sprite.visible = false
-			$Sprite2.visible = true
 			if(Global.animation_toggle):
+				$Sprite.visible = false
+				$Sprite2.visible = true
 				$AnimationPlayer.play("run")
 			if(Global.sound_toggle):
 				walk.play()
@@ -70,13 +72,15 @@ func _physics_process(_delta):
 #			sprinting = true
 #			sprintTime()
 	else:
-		$Sprite.visible = true
-		$Sprite2.visible = false
+		if(Global.animation_toggle):
+			$Sprite.visible = true
+			$Sprite2.visible = false
 		#$CPUParticles2D.visible = false
 		motion.x = lerp(motion.x, 0, 0.2)
 		if is_on_floor() and !jumped:
 			walk.stop()
-			$AnimationPlayer.play("idle")
+			if(Global.animation_toggle):
+				$AnimationPlayer.play("idle")
 			
 #	if Input.is_action_just_released("right") and !jumped:
 #		if sprinting == true:
@@ -101,20 +105,20 @@ func _physics_process(_delta):
 		
 	if is_on_floor():
 		if jumped:
-			$Sprite.visible = true
-			$Sprite2.visible = false
 			if(Global.animation_toggle):
+				$Sprite.visible = true
+				$Sprite2.visible = false
 				$AnimationPlayer.play("land")
 				$SpriteLandEffect.visible = true
-			if(Global.animation_toggle):
 				$AnimationPlayer2.play("landEffect")
 			yield(get_tree().create_timer(0.4), "timeout")
 			$SpriteLandEffect.visible = false
 			jumped = false
 			motion.x = 0
 		elif Input.is_action_just_pressed("jump"):
-			$Sprite.visible = true
-			$Sprite2.visible = false
+			if(Global.animation_toggle):
+				$Sprite.visible = true
+				$Sprite2.visible = false
 			jumped = true
 			motion.y = -jumpForce
 			#jumped = true
@@ -166,5 +170,8 @@ func _on_CheckButton3_toggled(button_pressed):
 func _on_CheckButton4_toggled(button_pressed):
 	if(button_pressed):
 		Global.sound_toggle = true
+		GlobalAudioStreamPlayer.play(mus_pos)
 	else:
 		Global.sound_toggle = false
+		mus_pos = GlobalAudioStreamPlayer.get_playback_position()
+		GlobalAudioStreamPlayer.stop()
