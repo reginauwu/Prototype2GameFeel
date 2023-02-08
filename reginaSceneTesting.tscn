@@ -16,7 +16,7 @@
 extents = Vector2( 20, 18 )
 
 [sub_resource type="DynamicFont" id=7]
-size = 50
+size = 28
 font_data = ExtResource( 5 )
 
 [sub_resource type="Animation" id=2]
@@ -196,34 +196,73 @@ position = Vector2( 64, -56 )
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2( 0, 40 )
+position = Vector2( 1, 40 )
 shape = SubResource( 8 )
+
+[node name="ParticleLabel" type="RichTextLabel" parent="Player"]
+margin_left = -435.0
+margin_top = -199.0
+margin_right = -286.0
+margin_bottom = -127.0
+custom_fonts/normal_font = SubResource( 7 )
+text = "Particle"
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="AnimationLabel" type="RichTextLabel" parent="Player"]
+margin_left = -473.0
+margin_top = -256.0
+margin_right = -324.0
+margin_bottom = -184.0
+custom_fonts/normal_font = SubResource( 7 )
+text = "Animation"
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="SoundLabel" type="RichTextLabel" parent="Player"]
+margin_left = -422.0
+margin_top = -140.0
+margin_right = -273.0
+margin_bottom = -68.0
+custom_fonts/normal_font = SubResource( 7 )
+text = "Sound"
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="ShakeLabel" type="RichTextLabel" parent="Player"]
+margin_left = -416.0
+margin_top = -314.0
+margin_right = -267.0
+margin_bottom = -242.0
+custom_fonts/normal_font = SubResource( 7 )
+text = "Shake"
+
+[node name="CheckButton4" type="CheckButton" parent="Player"]
+margin_left = -336.0
+margin_top = -139.0
+margin_right = -260.0
+margin_bottom = -99.0
 
 [node name="CheckButton3" type="CheckButton" parent="Player"]
 margin_left = -337.0
-margin_top = -191.0
+margin_top = -198.0
 margin_right = -261.0
-margin_bottom = -151.0
+margin_bottom = -158.0
 
 [node name="CheckButton2" type="CheckButton" parent="Player"]
 margin_left = -338.0
-margin_top = -250.0
+margin_top = -256.0
 margin_right = -262.0
-margin_bottom = -210.0
+margin_bottom = -216.0
 
 [node name="CheckButton" type="CheckButton" parent="Player"]
 margin_left = -379.0
 margin_top = -312.0
 margin_right = -262.0
 margin_bottom = -272.0
-
-[node name="ShakeLabel" type="RichTextLabel" parent="Player/CheckButton"]
-margin_left = -107.0
-margin_top = -19.0
-margin_right = 42.0
-margin_bottom = 53.0
-custom_fonts/normal_font = SubResource( 7 )
-text = "Shake"
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 0, -40 )
@@ -302,6 +341,7 @@ texture = ExtResource( 10 )
 position = Vector2( -386, -32 )
 shape = SubResource( 15 )
 
+[connection signal="toggled" from="Player/CheckButton4" to="Player" method="_on_CheckButton4_toggled"]
 [connection signal="toggled" from="Player/CheckButton3" to="Player" method="_on_CheckButton3_toggled"]
 [connection signal="toggled" from="Player/CheckButton2" to="Player" method="_on_CheckButton2_toggled"]
 [connection signal="toggled" from="Player/CheckButton" to="Player" method="_on_CheckButton_toggled"]

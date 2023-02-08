@@ -49,6 +49,7 @@ func _physics_process(_delta):
 			$Sprite2.visible = true
 			if(Global.animation_toggle):
 				$AnimationPlayer.play("run")
+			if(Global.sound_toggle):
 				walk.play()
 			#$CPUParticles2D.visible = true
 #		if doubleTapR == true:
@@ -62,6 +63,7 @@ func _physics_process(_delta):
 			$Sprite2.visible = true
 			if(Global.animation_toggle):
 				$AnimationPlayer.play("run")
+			if(Global.sound_toggle):
 				walk.play()
 			#$CPUParticles2D.visible = true
 #		if doubleTapL == true:
@@ -103,7 +105,7 @@ func _physics_process(_delta):
 			$Sprite2.visible = false
 			if(Global.animation_toggle):
 				$AnimationPlayer.play("land")
-			$SpriteLandEffect.visible = true
+				$SpriteLandEffect.visible = true
 			if(Global.animation_toggle):
 				$AnimationPlayer2.play("landEffect")
 			yield(get_tree().create_timer(0.4), "timeout")
@@ -159,3 +161,10 @@ func _on_CheckButton3_toggled(button_pressed):
 		Global.particle_toggle = true
 	else:
 		Global.particle_toggle = false
+
+# Sound Toggle
+func _on_CheckButton4_toggled(button_pressed):
+	if(button_pressed):
+		Global.sound_toggle = true
+	else:
+		Global.sound_toggle = false
