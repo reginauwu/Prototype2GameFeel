@@ -33,6 +33,10 @@ func _physics_process(_delta):
 	
 	motion.x = clamp(motion.x, -maxSpeed, maxSpeed)
 
+	if(Global.particle_toggle):
+		$Particles.visible = true
+	else:
+		$Particles.visible = false
 	
 	if Input.is_action_pressed("right"):
 		motion.x += accel
@@ -40,7 +44,8 @@ func _physics_process(_delta):
 		if is_on_floor() and !jumped:
 			$Sprite.visible = false
 			$Sprite2.visible = true
-			$AnimationPlayer.play("run")
+			if(Global.animation_toggle):
+				$AnimationPlayer.play("run")
 			#$CPUParticles2D.visible = true
 #		if doubleTapR == true:
 #			sprinting = true
@@ -51,7 +56,8 @@ func _physics_process(_delta):
 		if is_on_floor() and !jumped:
 			$Sprite.visible = false
 			$Sprite2.visible = true
-			$AnimationPlayer.play("run")
+			if(Global.animation_toggle):
+				$AnimationPlayer.play("run")
 			#$CPUParticles2D.visible = true
 #		if doubleTapL == true:
 #			sprinting = true
@@ -88,9 +94,11 @@ func _physics_process(_delta):
 		if jumped:
 			$Sprite.visible = true
 			$Sprite2.visible = false
-			$AnimationPlayer.play("land")
+			if(Global.animation_toggle):
+				$AnimationPlayer.play("land")
 			$SpriteLandEffect.visible = true
-			$AnimationPlayer2.play("landEffect")
+			if(Global.animation_toggle):
+				$AnimationPlayer2.play("landEffect")
 			yield(get_tree().create_timer(0.4), "timeout")
 			$SpriteLandEffect.visible = false
 			jumped = false
@@ -104,9 +112,11 @@ func _physics_process(_delta):
 			
 	if !is_on_floor():
 		if motion.y < 0:
-			$AnimationPlayer.play("jump")
+			if(Global.animation_toggle):
+				$AnimationPlayer.play("jump")
 		elif motion.y > 0:
-			$AnimationPlayer.play("fall") 
+			if(Global.animation_toggle):
+				$AnimationPlayer.play("fall") 
 			
 	motion = move_and_slide(motion, up)
 	for i in get_slide_count():
@@ -128,3 +138,17 @@ func _on_CheckButton_toggled(button_pressed):
 		Global.shake_button_toggle = true
 	else:
 		Global.shake_button_toggle = false
+		
+# Animation Toggle
+func _on_CheckButton2_toggled(button_pressed):
+	if(button_pressed):
+		Global.animation_toggle = true
+	else:
+		Global.animation_toggle = false
+		
+# Particle Toggle
+func _on_CheckButton3_toggled(button_pressed):
+	if(button_pressed):
+		Global.particle_toggle = true
+	else:
+		Global.particle_toggle = false

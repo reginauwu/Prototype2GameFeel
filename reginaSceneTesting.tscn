@@ -198,25 +198,37 @@ script = ExtResource( 3 )
 position = Vector2( 0, 40 )
 shape = SubResource( 8 )
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2( 0, -40 )
-current = true
-smoothing_enabled = true
-script = ExtResource( 4 )
+[node name="CheckButton3" type="CheckButton" parent="Player"]
+margin_left = -335.0
+margin_top = -194.0
+margin_right = -259.0
+margin_bottom = -154.0
 
-[node name="CheckButton" type="CheckButton" parent="Player/Camera2D"]
+[node name="CheckButton2" type="CheckButton" parent="Player"]
+margin_left = -337.0
+margin_top = -254.0
+margin_right = -261.0
+margin_bottom = -214.0
+
+[node name="CheckButton" type="CheckButton" parent="Player"]
 margin_left = -379.0
-margin_top = -272.0
+margin_top = -312.0
 margin_right = -262.0
-margin_bottom = -232.0
+margin_bottom = -272.0
 
-[node name="ShakeLabel" type="RichTextLabel" parent="Player/Camera2D/CheckButton"]
+[node name="ShakeLabel" type="RichTextLabel" parent="Player/CheckButton"]
 margin_left = -107.0
 margin_top = -19.0
 margin_right = 42.0
 margin_bottom = 53.0
 custom_fonts/normal_font = SubResource( 7 )
 text = "Shake"
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 0, -40 )
+current = true
+smoothing_enabled = true
+script = ExtResource( 4 )
 
 [node name="Tween" type="Tween" parent="Player/Camera2D"]
 
@@ -259,7 +271,7 @@ vframes = 3
 anims/RESET = SubResource( 11 )
 anims/landEffect = SubResource( 12 )
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Player"]
+[node name="Particles" type="CPUParticles2D" parent="Player"]
 material = SubResource( 13 )
 position = Vector2( -10, 60 )
 z_index = -5
@@ -285,5 +297,7 @@ texture = ExtResource( 10 )
 position = Vector2( -386, -32 )
 shape = SubResource( 15 )
 
-[connection signal="toggled" from="Player/Camera2D/CheckButton" to="Player" method="_on_CheckButton_toggled"]
+[connection signal="toggled" from="Player/CheckButton3" to="Player" method="_on_CheckButton3_toggled"]
+[connection signal="toggled" from="Player/CheckButton2" to="Player" method="_on_CheckButton2_toggled"]
+[connection signal="toggled" from="Player/CheckButton" to="Player" method="_on_CheckButton_toggled"]
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_Timer_timeout"]
