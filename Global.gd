@@ -1,7 +1,7 @@
 extends Node
 
 var camera = null
-var shake_button_toggle = false
-var animation_toggle = false
-var particle_toggle = false
-var sound_toggle = false
+var shake_button_toggle = true
+var animation_toggle = true
+var particle_toggle = true
+var sound_toggle = true
