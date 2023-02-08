@@ -198,32 +198,25 @@ script = ExtResource( 3 )
 position = Vector2( 0, 40 )
 shape = SubResource( 8 )
 
-[node name="Button" type="Button" parent="Player"]
-margin_left = -1050.0
-margin_top = -846.0
-margin_right = -897.0
-margin_bottom = -764.0
-text = "Shake"
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 0, -40 )
+current = true
+smoothing_enabled = true
+script = ExtResource( 4 )
 
-[node name="CheckButton" type="CheckButton" parent="Player"]
-margin_left = -942.0
-margin_top = -717.0
-margin_right = -825.0
-margin_bottom = -677.0
+[node name="CheckButton" type="CheckButton" parent="Player/Camera2D"]
+margin_left = -379.0
+margin_top = -272.0
+margin_right = -262.0
+margin_bottom = -232.0
 
-[node name="ShakeLabel" type="RichTextLabel" parent="Player/CheckButton"]
+[node name="ShakeLabel" type="RichTextLabel" parent="Player/Camera2D/CheckButton"]
 margin_left = -107.0
 margin_top = -19.0
 margin_right = 42.0
 margin_bottom = 53.0
 custom_fonts/normal_font = SubResource( 7 )
 text = "Shake"
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2( 0, -40 )
-current = true
-smoothing_enabled = true
-script = ExtResource( 4 )
 
 [node name="Tween" type="Tween" parent="Player/Camera2D"]
 
@@ -292,6 +285,5 @@ texture = ExtResource( 10 )
 position = Vector2( -386, -32 )
 shape = SubResource( 15 )
 
-[connection signal="pressed" from="Player/Button" to="Player" method="_on_Button_pressed"]
-[connection signal="toggled" from="Player/CheckButton" to="Player" method="_on_CheckButton_toggled"]
+[connection signal="toggled" from="Player/Camera2D/CheckButton" to="Player" method="_on_CheckButton_toggled"]
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_Timer_timeout"]

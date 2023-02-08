@@ -111,7 +111,8 @@ func _physics_process(_delta):
 	motion = move_and_slide(motion, up)
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
-		print("I collided with ", collision.collider.name)
+		if(Global.shake_button_toggle) and collision.collider.name == "Enemy":
+			Global.camera.shake(0.25,5)
 	
 #func sprintTime():
 #	yield(get_tree().create_timer(0.1), "timeout")
@@ -120,10 +121,6 @@ func _physics_process(_delta):
 #func _on_Timer_timeout():
 #	doubleTapL = false
 #	doubleTapR = false
-
-func _on_Button_pressed():
-	if(Global.shake_button_toggle):
-		Global.camera.shake(1,4)
 
 # Shake Toggle
 func _on_CheckButton_toggled(button_pressed):
