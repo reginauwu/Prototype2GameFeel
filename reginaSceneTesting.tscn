@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://testTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://slimeSprites/slimeWalk.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://audio/slime_movement.wav" type="AudioStream" id=11]
 [ext_resource path="res://audio/slime_jump.wav" type="AudioStream" id=12]
 [ext_resource path="res://audio/slime_landLonger.wav" type="AudioStream" id=13]
+[ext_resource path="res://audio/slime_hitShort.wav" type="AudioStream" id=14]
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 20, 18 )
@@ -337,6 +338,11 @@ volume_db = 15.0
 [node name="PlayerLandSound" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource( 13 )
 volume_db = 15.0
+
+[node name="PlayerHitSound" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource( 14 )
+volume_db = 10.0
+pitch_scale = 1.5
 
 [node name="Enemy" type="KinematicBody2D" parent="."]
 

@@ -16,6 +16,7 @@ var mus_pos = 0
 onready var sfxWalk = $PlayerWalkSound
 onready var sfxJump = $PlayerJumpSound
 onready var sfxLand = $PlayerLandSound
+onready var sfxHit = $PlayerHitSound
 
 
 #var sprinting = false
@@ -142,8 +143,16 @@ func _physics_process(_delta):
 	motion = move_and_slide(motion, up)
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
-		if(Global.shake_button_toggle) and collision.collider.name == "Enemy":
-			Global.camera.shake(0.25,5)
+		if(collision.collider.name == "Enemy"):
+			if (Global.sound_toggle) and !sfxHit.is_playing():
+				sfxHit.play()
+			if (Global.shake_button_toggle):
+				Global.camera.shake(0.25,5)
+			if (dirRight):
+				motion.x -= 5000
+			else:
+				motion.x += 500
+
 	
 #func sprintTime():
 #	yield(get_tree().create_timer(0.1), "timeout")
